@@ -17,4 +17,3 @@ class PropertiesItem(Item):
     spider = Field()
     server = Field()
     date = Field()
-    
