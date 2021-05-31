@@ -2,7 +2,7 @@ import scrapy
 from Learning_scrapy_Basic.items import PropertiesItem
 from scrapy.loader import ItemLoader
 from scrapy.loader.processors import MapCompose, Join
-import urlparse
+import urllib.parse
 import datetime
 import socket
 
@@ -27,7 +27,7 @@ class BasicSpider(scrapy.Spider):
         loader.add_xpath('price', '//*[@itemprop="price"][1]/text()', MapCompose(lambda i: i.replace(',', ''), float), re='[,.0-9]+')
         loader.add_xpath('description', '//*[@itemprop="description"][1]/text()', MapCompose(unicode.strip), Join())
         loader.add_xpath('address', '//*[@itemtype="http://schema.org/"Place"][1]/text()', MapCompose(unicode.strip))
-        loader.add_xpath('image_urls', '//*[@itemprop="image"][1]/@src', MapCompose(lambda i: urlparse.urljoin(response.url, i)))
+        loader.add_xpath('image_urls', '//*[@itemprop="image"][1]/@src', MapCompose(lambda i: urllib.parse.urljoin(response.url, i)))
 
         loader.add_value('url', response.url)
         loader.add_value('project', self.settings.get('BOT_NAME'))
