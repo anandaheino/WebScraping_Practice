@@ -1,6 +1,6 @@
 import scrapy
 from Learning_scrapy_Basic.items import PropertiesItem
-
+from scrapy.loader import ItemLoader
 
 class BasicSpider(scrapy.Spider):
 
@@ -10,12 +10,13 @@ class BasicSpider(scrapy.Spider):
 
     def parse(self, response):
 
-        item = PropertiesItem()  # instantiating
+        loader = ItemLoader(item = PropertiesItem(), response= response)  # instantiating
 
-        item['title'] = response.xpath('//*[@itemprop="name"][1]/text()').extract()
-        item['price'] = response.xpath('//*[@itemprop="price"][1]/text()').re('[.0-9]+')
-        item['description'] = response.xpath('//*[@itemprop="description"][1]/text()').extract()
-        item['address'] = response.xpath('//*[@itemtype="http://schema.org/"Place"][1]/text()').extract()
-        item['image_urls'] = response.xpath('//*[@itemprop="image"][1]/@src').extract()
+        loader.add_xpath('//*[@itemprop="name"][1]/text()').extract()
+        loader.add_xpath('//*[@itemprop="price"][1]/text()').re('[.0-9]+')
+        loader.add_xpath('//*[@itemprop="description"][1]/text()').extract()
+        loader.add_xpath('//*[@itemtype="http://schema.org/"Place"][1]/text()').extract()
+        loader.add_xpath('//*[@itemprop="image"][1]/@src').extract()
 
-        return item
+        return loader.load_item()
+    
