@@ -1,9 +1,7 @@
 import scrapy
 from Syngenta_CaseExample.items import SyngentaCaseItem
-
 from urllib.parse import urljoin
 import datetime
-import socket
 from Syngenta_CaseExample.funcoes import abre_e_scrap, find_links_in_cards
 
 
