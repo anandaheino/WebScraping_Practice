@@ -9,7 +9,7 @@ import socket
 
 class SyngentaNKSpider(scrapy.Spider):
 
-    name = 'syngenta_nk'
+    name = 'syngenta_1'
     allowed_domains = ['web']
     start_urls = ['https://www.portalsyngenta.com.br/sementes/nk-soja/nk-8770-ipro']
 
